@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>线性匀速运动</title>
+  <style>
+    .track {
+      width: 800px;
+      height: 50px;
+      position: relative;
+      border: 1px solid black;
+    }
+    #linear {
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: green;
+    }
+  </style>
+</head>
+<body>
+  <div class="demo">
+    <h4>线性匀速运动</h4>
+    <div class="track">
+      <i id="linear" style="transform: translateX(0px)"></i>
+    </div>
+  </div>
+  <script>
+    /**
+     * 线性匀速运动
+     * t: current time（当前时间）
+     * b: beginning value（初始值）
+     * c: change in value（变化量）
+     * d: duration（持续时间）
+     */
+    function Linear (t, b, c, d) {
+      return c * t / d + b
+    }
+
+    // 点击球触发运动
+    const ele = document.getElementById('linear')
+    ele.addEventListener('click', (e) => {
+      // 当前时间
+      let start = 0
+      // 持续时间
+      const during = 100
+
+      // 运动
+      const step = () => {
+        const left = Linear(start, 0, 800 - 50, during)
+        ele.style.transform = 'translateX(' + left + 'px)'
+
+        start += 1
+    
+        if (start <= during) {
+          requestAnimationFrame(step)
+        }
+      }
+    
+      step()
+    })
+  </script>
+</body>
+</html>
